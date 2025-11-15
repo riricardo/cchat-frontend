@@ -1,11 +1,11 @@
 import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleProvider } from "./config/firebase";
 import Cookies from "universal-cookie";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 const cookies = new Cookies();
 
 function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(getSignedIn());
 
   async function handleLogin() {
     await signInWithPopup(auth, googleProvider);
@@ -17,13 +17,14 @@ function App() {
     cookies.remove("token");
   }
 
-  async function handleTest() {
-    console.log(auth?.currentUser);
+  function getSignedIn() {
+    return auth?.currentUser != null;
   }
 
-  useEffect(() => {
-    setSignedIn(!!cookies.get("token"));
-  }, []);
+  async function handleTest() {
+    setSignedIn(getSignedIn());
+    console.log("auth", auth);
+  }
 
   return (
     <>
