@@ -1,40 +1,31 @@
-import { signInWithPopup, signOut } from "firebase/auth";
-import { auth, googleProvider } from "./config/firebase";
-import Cookies from "universal-cookie";
-import { useState } from "react";
-const cookies = new Cookies();
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PublicRoute from "./components/PublicRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import LoginPage from "./components/LoginPage";
+import HomePage from "./components/HomePage";
 
 function App() {
-  const [signedIn, setSignedIn] = useState(getSignedIn());
-
-  async function handleLogin() {
-    await signInWithPopup(auth, googleProvider);
-    cookies.set("token", auth?.currentUser?.accessToken);
-  }
-
-  async function handleLogout() {
-    await signOut(auth);
-    cookies.remove("token");
-  }
-
-  function getSignedIn() {
-    return auth?.currentUser != null;
-  }
-
-  async function handleTest() {
-    setSignedIn(getSignedIn());
-    console.log("auth", auth);
-  }
-
   return (
-    <>
-      <button className="btn" onClick={handleLogin}>
-        Login with google
-      </button>
-      <button onClick={handleLogout}>Logout</button>
-      <button onClick={handleTest}>Test Button</button>
-      <p>{signedIn.toString()}</p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
