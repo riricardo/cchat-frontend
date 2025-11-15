@@ -9,7 +9,7 @@ export default function LoginPage() {
       </div>
       <div className="text-3xl font-bold text-green-500">cchat</div>
       <button
-        className="btn btn-primary mt-3"
+        className="btn btn-accent mt-5"
         onClick={() => {
           const provider = new GoogleAuthProvider();
           signInWithPopup(auth, provider);
