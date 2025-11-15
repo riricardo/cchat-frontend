@@ -28,7 +28,9 @@ function App() {
 
   return (
     <>
-      <button onClick={handleLogin}>Login with google</button>
+      <button className="btn" onClick={handleLogin}>
+        Login with google
+      </button>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={handleTest}>Test Button</button>
       <p>{signedIn.toString()}</p>
