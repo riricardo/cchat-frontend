@@ -1,5 +1,38 @@
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, googleProvider } from "./config/firebase";
+import Cookies from "universal-cookie";
+import { useState, useEffect } from "react";
+const cookies = new Cookies();
+
 function App() {
-  return <>Teste</>;
+  const [signedIn, setSignedIn] = useState(false);
+
+  async function handleLogin() {
+    await signInWithPopup(auth, googleProvider);
+    cookies.set("token", auth?.currentUser?.accessToken);
+  }
+
+  async function handleLogout() {
+    await signOut(auth);
+    cookies.remove("token");
+  }
+
+  async function handleTest() {
+    console.log(auth?.currentUser);
+  }
+
+  useEffect(() => {
+    setSignedIn(!!cookies.get("token"));
+  }, []);
+
+  return (
+    <>
+      <button onClick={handleLogin}>Login with google</button>
+      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleTest}>Test Button</button>
+      <p>{signedIn.toString()}</p>
+    </>
+  );
 }
 
 export default App;
