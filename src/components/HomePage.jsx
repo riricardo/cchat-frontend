@@ -16,25 +16,85 @@ export default function HomePage() {
       >
         <>
           {/* <div className="flex flex-col h-full">
-            <button className="btn btn-accent">btn 1</button>
+            <div className="flex flex-col overflow-y-auto ">
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+              <button className="btn btn-accent">btn 1</button>
+            </div>
 
-            <button className="mt-auto btn btn-primary">btn 2</button>
+            <button className="btn btn-primary">btn 2</button>
           </div> */}
+
           <div className="flex flex-col h-full">
-            <MessageBubble
-              profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
-              userName="Obi-Wan Kenobi"
-              date={new Date(2025, 11, 15, 12, 45, 0, 0)}
-              text="You were the Chosen One!"
-              isLoggedUser={false}
-            />
-            <MessageBubble
-              profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
-              userName="Anakin"
-              date={new Date(2025, 11, 15, 12, 46, 0, 0)}
-              text="I hate you!"
-              isLoggedUser={true}
-            />
+            <div className="flex flex-col overflow-y-auto">
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                userName="Obi-Wan Kenobi"
+                date={new Date(2025, 11, 15, 12, 45, 0, 0)}
+                text="You were the Chosen One!"
+                isLoggedUser={false}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                userName="Anakin"
+                date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+                text="I hate you!"
+                isLoggedUser={true}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                userName="Anakin"
+                date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+                text="I hate you!"
+                isLoggedUser={true}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                userName="Anakin"
+                date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+                text="I hate you!"
+                isLoggedUser={true}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                userName="Anakin"
+                date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+                text="I hate you!"
+                isLoggedUser={true}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                userName="Anakin"
+                date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+                text="I hate you!"
+                isLoggedUser={true}
+              />
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                userName="Obi-Wan Kenobi"
+                date={new Date(2025, 11, 15, 12, 45, 0, 0)}
+                text="You were the Chosen One!"
+                isLoggedUser={false}
+              />{" "}
+              <MessageBubble
+                profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                userName="Obi-Wan Kenobi"
+                date={new Date(2025, 11, 15, 12, 45, 0, 0)}
+                text="You were the Chosen One!"
+                isLoggedUser={false}
+              />
+            </div>
             <div className="mt-auto flex gap-4">
               <input
                 type="text"
