@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import PublicRoute from "./components/PublicRoute";
-import PrivateRoute from "./components/PrivateRoute";
-import LoginPage from "./components/LoginPage";
-import HomePage from "./components/HomePage";
-import ChatPage from "./components/ChatPage";
+import PublicRoute from "./components/routes/PublicRoute";
+import PrivateRoute from "./components/routes/PrivateRoute";
+import LoginPage from "./components/pages/LoginPage";
+import HomePage from "./components/pages/HomePage";
+import ChatPage from "./components/pages/ChatPage";
 
 function PageWrapper({ children }) {
   return (

@@ -1,7 +1,7 @@
-import SwipeableTab from "./SwipeableTab";
-import SettingsTab, { SettingsTabHeader } from "./SettingsTab";
-import AddChatTab, { AddChatTabHeader } from "./AddChatTab";
-import ChatTab, { ChatTabHeader } from "./ChatsTab";
+import SwipeableTab from "../tabs/SwipeableTab";
+import SettingsTab, { SettingsTabHeader } from "../tabs/SettingsTab";
+import AddChatTab, { AddChatTabHeader } from "../tabs/AddChatTab";
+import ChatTab, { ChatTabHeader } from "../tabs/ChatsTab";
 
 export default function HomePage() {
   return (

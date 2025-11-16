@@ -1,5 +1,5 @@
-import chats from "./test";
-import ChatItem from "./ChatItem";
+import chats from "../test";
+import ChatItem from "../core/ChatItem";
 import { useNavigate } from "react-router-dom";
 
 export function ChatTabHeader() {

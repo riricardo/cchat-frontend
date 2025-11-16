@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 
-import MessageBubble from "./MessageBubble";
-import MessageInput from "./MessageInput";
-import messages from "./messages-test";
+import MessageBubble from "../core/MessageBubble";
+import MessageInput from "../core/MessageInput";
+import messages from "../messages-test";
 
 export default function ChatPage() {
   const { chatId } = useParams();
