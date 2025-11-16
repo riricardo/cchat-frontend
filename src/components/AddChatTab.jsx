@@ -1,7 +1,7 @@
 export function AddChatTabHeader() {
   return (
     <>
-      <i class="fa-solid fa-comment-medical mr-2"></i>
+      <i className="fa-solid fa-comment-medical mr-2"></i>
       Add Chat
     </>
   );

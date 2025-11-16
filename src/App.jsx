@@ -3,6 +3,7 @@ import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
+import ChatPage from "./components/ChatPage";
 
 function App() {
   return (
@@ -21,6 +22,15 @@ function App() {
           element={
             <PrivateRoute>
               <HomePage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/chat/:chatId"
+          element={
+            <PrivateRoute>
+              <ChatPage />
             </PrivateRoute>
           }
         />

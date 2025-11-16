@@ -1,4 +1,4 @@
-export default function ChatItem({ chatDetails }) {
+export default function ChatItem({ chatDetails, onClick }) {
   let img = chatDetails.isUserChat
     ? chatDetails.users[0].profileImageUrl
     : chatDetails.group.groupImageUrl;
@@ -7,7 +7,7 @@ export default function ChatItem({ chatDetails }) {
     : chatDetails.group.groupName;
 
   return (
-    <li className="list-row flex items-center">
+    <li className="list-row flex items-center cursor-pointer" onClick={onClick}>
       <div>
         <img className="size-10 rounded-box" src={img} />
       </div>
