@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import MessageBubble from "../core/MessageBubble";
 import MessageInput from "../core/MessageInput";
 import messages from "../messages-test";
+import NavigationHeader from "../core/NavigationHeader";
 
 export default function ChatPage() {
   const { chatId } = useParams();
@@ -17,12 +18,11 @@ export default function ChatPage() {
 
   return (
     <div className="h-dvh flex flex-col">
-      <div className="flex gap-2 p-3">
-        <button className="cursor-pointer" onClick={() => navigate("/")}>
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
-        <h1>Nome do chat</h1>
-      </div>
+      <NavigationHeader
+        className="p-3"
+        title="Nome do chat"
+        onClick={() => navigate("/")}
+      />
 
       <div className="flex-1 overflow-y-auto p-3">
         {messages.map((message) => (
