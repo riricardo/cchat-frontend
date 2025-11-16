@@ -5,6 +5,8 @@ import PrivateRoute from "./components/routes/PrivateRoute";
 import LoginPage from "./components/pages/LoginPage";
 import HomePage from "./components/pages/HomePage";
 import ChatPage from "./components/pages/ChatPage";
+import AddUserPage from "./components/pages/AddUserPage";
+import AddGroupPage from "./components/pages/AddGroupPage";
 
 function PageWrapper({ children }) {
   return (
@@ -53,6 +55,28 @@ function AnimatedApp() {
             <PageWrapper>
               <PrivateRoute>
                 <ChatPage />
+              </PrivateRoute>
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="/add-user"
+          element={
+            <PageWrapper>
+              <PrivateRoute>
+                <AddUserPage />
+              </PrivateRoute>
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="/add-group"
+          element={
+            <PageWrapper>
+              <PrivateRoute>
+                <AddGroupPage />
               </PrivateRoute>
             </PageWrapper>
           }
