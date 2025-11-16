@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 import MessageBubble from "./MessageBubble";
 import MessageInput from "./MessageInput";
@@ -7,6 +8,12 @@ import messages from "./messages-test";
 export default function ChatPage() {
   const { chatId } = useParams();
   const navigate = useNavigate();
+
+  const bottomRef = useRef();
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="h-dvh flex flex-col">
@@ -28,6 +35,7 @@ export default function ChatPage() {
             isLoggedUser={message.isLoggedUser}
           />
         ))}
+        <div ref={bottomRef} />
       </div>
 
       <MessageInput className="p-3" />
