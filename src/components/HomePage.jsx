@@ -14,11 +14,11 @@ function TabContent({ children }) {
 
 export default function HomePage() {
   return (
-    <SwipeableTab className="h-screen bg-accent">
+    <SwipeableTab className="h-screen flex">
       <SwipeableTab.Tab
         header={
           <>
-            <i class="fa-solid fa-comments mr-2"></i>
+            <i className="fa-solid fa-comments mr-2"></i>
             Chat
           </>
         }
@@ -68,7 +68,7 @@ export default function HomePage() {
       <SwipeableTab.Tab
         header={
           <>
-            <i class="fa-solid fa-gear mr-2"></i>
+            <i className="fa-solid fa-gear mr-2"></i>
             Settings
           </>
         }
