@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 import MessageBubble from "../core/MessageBubble";
 import MessageInput from "../core/MessageInput";
-import messages from "../messages-test";
+import messages from "../tests/messages-test";
 import NavigationHeader from "../core/NavigationHeader";
 
 export default function ChatPage() {

@@ -1,4 +1,4 @@
-import chats from "../test";
+import chats from "../tests/chats-test";
 import ChatItem from "../core/ChatItem";
 import { useNavigate } from "react-router-dom";
 
