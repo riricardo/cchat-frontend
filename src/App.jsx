@@ -6,6 +6,20 @@ import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import ChatPage from "./components/ChatPage";
 
+function PageWrapper({ children }) {
+  return (
+    <motion.div
+      initial={{ x: 50, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -50, opacity: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="h-full w-full"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function AnimatedApp() {
   const location = useLocation();
 
@@ -53,20 +67,6 @@ function App() {
     <BrowserRouter>
       <AnimatedApp />
     </BrowserRouter>
-  );
-}
-
-function PageWrapper({ children }) {
-  return (
-    <motion.div
-      initial={{ x: 50, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -50, opacity: 0 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      className="h-full w-full"
-    >
-      {children}
-    </motion.div>
   );
 }
 

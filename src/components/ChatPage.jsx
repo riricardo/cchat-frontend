@@ -9,7 +9,7 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <div className="flex gap-2 p-4">
         <button className="cursor-pointer" onClick={() => navigate("/")}>
           <i className="fa-solid fa-arrow-left"></i>
@@ -17,21 +17,20 @@ export default function ChatPage() {
         <h1>Nome do chat</h1>
       </div>
 
-      <div className="p-4">
-        <div className="">
-          {messages.map((message) => (
-            <MessageBubble
-              key={message.id}
-              profileImageUrl={message.profileImageUrl}
-              userName={message.userName}
-              date={message.date}
-              text={message.text}
-              isLoggedUser={message.isLoggedUser}
-            />
-          ))}
-        </div>
-        <MessageInput className="mt-auto" />
+      <div className="flex-1 overflow-y-auto p-4">
+        {messages.map((message) => (
+          <MessageBubble
+            key={message.id}
+            profileImageUrl={message.profileImageUrl}
+            userName={message.userName}
+            date={message.date}
+            text={message.text}
+            isLoggedUser={message.isLoggedUser}
+          />
+        ))}
       </div>
+
+      <MessageInput className="p-4" />
     </div>
   );
 }
