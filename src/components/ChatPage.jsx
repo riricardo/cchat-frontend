@@ -9,7 +9,7 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="min-h-screen h-dvh flex flex-col">
       <div className="flex gap-2 p-3">
         <button className="cursor-pointer" onClick={() => navigate("/")}>
           <i className="fa-solid fa-arrow-left"></i>
