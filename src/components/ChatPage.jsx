@@ -21,6 +21,7 @@ export default function ChatPage() {
         <div className="">
           {messages.map((message) => (
             <MessageBubble
+              key={message.id}
               profileImageUrl={message.profileImageUrl}
               userName={message.userName}
               date={message.date}

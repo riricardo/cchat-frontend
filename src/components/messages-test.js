@@ -1,5 +1,6 @@
 let messages = [
   {
+    id: "1",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -8,6 +9,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "2",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -16,6 +18,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "3",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -24,6 +27,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "4",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -32,6 +36,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "5",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/anakeen@192.webp",
     userName: "Anakin",
@@ -40,6 +45,7 @@ let messages = [
     isLoggedUser: true,
   },
   {
+    id: "6",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -48,6 +54,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "7",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/kenobee@192.webp",
     userName: "Obi-Wan Kenobi",
@@ -56,6 +63,7 @@ let messages = [
     isLoggedUser: false,
   },
   {
+    id: "8",
     profileImageUrl:
       "https://img.daisyui.com/images/profile/demo/anakeen@192.webp",
     userName: "Anakin",
