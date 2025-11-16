@@ -1,16 +1,7 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import MessageBubble from "./MessageBubble";
-import { useState } from "react";
 import SwipeableTab from "./SwipeableTab";
-
-function TabContent({ children }) {
-  return (
-    <div className="tab-content bg-base-100 border-base-300 p-6 h-screen">
-      {children}
-    </div>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -24,20 +15,37 @@ export default function HomePage() {
         }
       >
         <>
-          <MessageBubble
-            profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
-            userName="Obi-Wan Kenobi"
-            date={new Date(2025, 11, 15, 12, 45, 0, 0)}
-            text="You were the Chosen One!"
-            isLoggedUser={false}
-          />
-          <MessageBubble
-            profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
-            userName="Anakin"
-            date={new Date(2025, 11, 15, 12, 46, 0, 0)}
-            text="I hate you!"
-            isLoggedUser={true}
-          />
+          {/* <div className="flex flex-col h-full">
+            <button className="btn btn-accent">btn 1</button>
+
+            <button className="mt-auto btn btn-primary">btn 2</button>
+          </div> */}
+          <div className="flex flex-col h-full">
+            <MessageBubble
+              profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+              userName="Obi-Wan Kenobi"
+              date={new Date(2025, 11, 15, 12, 45, 0, 0)}
+              text="You were the Chosen One!"
+              isLoggedUser={false}
+            />
+            <MessageBubble
+              profileImageUrl="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+              userName="Anakin"
+              date={new Date(2025, 11, 15, 12, 46, 0, 0)}
+              text="I hate you!"
+              isLoggedUser={true}
+            />
+            <div className="mt-auto flex gap-4">
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input w-full"
+              />
+              <button className="btn btn-accent">
+                <i className="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
         </>
       </SwipeableTab.Tab>
 
