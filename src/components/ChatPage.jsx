@@ -10,16 +10,15 @@ export default function ChatPage() {
 
   return (
     <div>
-      <div className="flex gap-2 p-2">
+      <div className="flex gap-2 p-4">
         <button className="cursor-pointer" onClick={() => navigate("/")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         <h1>Nome do chat</h1>
       </div>
-      <h1>Chat {chatId}</h1>
 
-      <div className="flex flex-col h-full">
-        <div className="flex flex-col overflow-y-auto">
+      <div className="p-4">
+        <div className="">
           {messages.map((message) => (
             <MessageBubble
               profileImageUrl={message.profileImageUrl}

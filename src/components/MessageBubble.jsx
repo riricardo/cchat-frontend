@@ -20,7 +20,7 @@ export default function MessageBubble({
     <div className={`chat ${isLoggedUser ? "chat-end" : "chat-start"}`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS chat bubble component" src={profileImageUrl} />
+          <img alt="Profile image" src={profileImageUrl} />
         </div>
       </div>
       <div className="chat-header">{userName}</div>
