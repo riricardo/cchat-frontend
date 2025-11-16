@@ -37,3 +37,7 @@ A modern web application that mimics the core features of **WhatsApp**, includin
 **Database**
 
 - Firestore
+
+**Access**
+
+- The app is published in: https://cchat-app-105f1.web.app/
