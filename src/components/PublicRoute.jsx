@@ -5,7 +5,11 @@ export default function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div class="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner text-accent"></span>
+      </div>
+    );
   }
 
   return !user ? children : <Navigate to="/" />;
