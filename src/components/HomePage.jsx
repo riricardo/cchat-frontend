@@ -1,6 +1,7 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import MessageBubble from "./MessageBubble";
+import MessageInput from "./MessageInput";
 import SwipeableTab from "./SwipeableTab";
 
 export default function HomePage() {
@@ -15,27 +16,6 @@ export default function HomePage() {
         }
       >
         <>
-          {/* <div className="flex flex-col h-full">
-            <div className="flex flex-col overflow-y-auto ">
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-              <button className="btn btn-accent">btn 1</button>
-            </div>
-
-            <button className="btn btn-primary">btn 2</button>
-          </div> */}
-
           <div className="flex flex-col h-full">
             <div className="flex flex-col overflow-y-auto">
               <MessageBubble
@@ -95,16 +75,7 @@ export default function HomePage() {
                 isLoggedUser={false}
               />
             </div>
-            <div className="mt-auto flex gap-4">
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input w-full"
-              />
-              <button className="btn btn-accent">
-                <i className="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
+            <MessageInput className="mt-auto" />
           </div>
         </>
       </SwipeableTab.Tab>
