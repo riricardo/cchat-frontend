@@ -26,7 +26,7 @@ export default function SwipeableTab({ children, className = "" }) {
 
             {/* Content */}
             <div
-              className={`tab-content bg-base-100 border-base-300 p-6 w-full ${
+              className={`tab-content bg-base-100 border-base-300 w-full ${
                 i === index ? "" : "hidden"
               }`}
             >

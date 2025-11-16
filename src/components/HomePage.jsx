@@ -1,22 +1,50 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../config/firebase";
-import MessageBubble from "./MessageBubble";
-import MessageInput from "./MessageInput";
 import SwipeableTab from "./SwipeableTab";
+import SettingsTab, { SettingsTabHeader } from "./SettingsTab";
+import AddChatTab, { AddChatTabHeader } from "./AddChatTab";
+import ChatTab, { ChatTabHeader } from "./ChatsTab";
 
 export default function HomePage() {
   return (
     <SwipeableTab className="h-screen flex">
-      <SwipeableTab.Tab
-        header={
-          <>
-            <i className="fa-solid fa-comments mr-2"></i>
-            Chat
-          </>
-        }
-      >
-        <>
-          <div className="flex flex-col h-full">
+      <SwipeableTab.Tab header={<ChatTabHeader />}>
+        <ChatTab />
+      </SwipeableTab.Tab>
+
+      <SwipeableTab.Tab header={<AddChatTabHeader />}>
+        <AddChatTab />
+      </SwipeableTab.Tab>
+
+      <SwipeableTab.Tab header={<SettingsTabHeader />}>
+        <SettingsTab />
+      </SwipeableTab.Tab>
+    </SwipeableTab>
+  );
+}
+
+/* <div className="flex flex-col">
+          <label className="input w-full">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input type="search" className="grow" placeholder="Search" />
+          </label>
+        </div> */
+
+/* BUBBLE CHAT
+  <div className="flex flex-col h-full">
             <div className="flex flex-col overflow-y-auto">
               <MessageBubble
                 profileImageUrl="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
@@ -76,48 +104,4 @@ export default function HomePage() {
               />
             </div>
             <MessageInput className="mt-auto" />
-          </div>
-        </>
-      </SwipeableTab.Tab>
-
-      <SwipeableTab.Tab
-        header={
-          <>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-4 me-2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
-              />
-            </svg>
-            Laugh
-          </>
-        }
-      >
-        <div>Tab Content</div>
-      </SwipeableTab.Tab>
-
-      <SwipeableTab.Tab
-        header={
-          <>
-            <i className="fa-solid fa-gear mr-2"></i>
-            Settings
-          </>
-        }
-      >
-        <>
-          <button className="btn btn-warning" onClick={() => signOut(auth)}>
-            Sign Out
-          </button>
-        </>
-      </SwipeableTab.Tab>
-    </SwipeableTab>
-  );
-}
+          </div> */
