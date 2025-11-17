@@ -8,6 +8,8 @@ import {
   or,
   orderBy,
   onSnapshot,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
@@ -32,6 +34,21 @@ export async function searchChatByUserKey(users) {
     ...doc.data(),
     id: doc.id,
   };
+}
+
+async function getDocumentById(collectionName, id) {
+  const ref = doc(db, collectionName, id);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    return { id: snap.id, ...snap.data() };
+  } else {
+    return null;
+  }
+}
+
+export async function getChatById(chatId) {
+  return await getDocumentById("chatHeader", chatId);
 }
 
 export async function createChatHeader(group, privateChat) {

@@ -7,6 +7,7 @@ import MessageInput from "../core/MessageInput";
 import NavigationHeader from "../core/NavigationHeader";
 import {
   createChatMessage,
+  getChatById,
   listenToMessages,
   listenToUsers,
 } from "../../services/chatService";
@@ -17,6 +18,7 @@ export default function ChatPage() {
   const [users, setUsers] = useState([]);
   const [messagesRaw, setMessagesRaw] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [title, setTitle] = useState("");
 
   const { dbUser } = useAuth();
 
@@ -26,8 +28,33 @@ export default function ChatPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
+  function userAt(users, userId) {
+    return users.find((u) => u.id == userId);
+  }
+
+  async function getChat(users) {
+    let chat = await getChatById(chatId);
+
+    let index = 0;
+    if (chat?.group == null) {
+      if (chat?.privateChat?.users[0].id == dbUser.id) index = 1;
+    }
+
+    console.log(index);
+
+    let title =
+      chat?.group == null
+        ? userAt(users, chat?.privateChat?.users[index].id)?.name
+        : chat?.group?.name;
+
+    setTitle(title);
+  }
+
   useEffect(() => {
-    const unsubscribeUsers = listenToUsers((users) => setUsers(users));
+    const unsubscribeUsers = listenToUsers((users) => {
+      setUsers(users);
+      getChat(users);
+    });
     const unsubscribeMessages = listenToMessages(chatId, (messages) => {
       setMessagesRaw(messages);
       scrollToBotton();
@@ -39,10 +66,6 @@ export default function ChatPage() {
     };
   }, [chatId]);
 
-  function getChatName() {
-    return "chat";
-  }
-
   async function handleMessageSubmit(e) {
     e.preventDefault();
 
@@ -51,15 +74,11 @@ export default function ChatPage() {
     setNewMessage("");
   }
 
-  function userAt(userId) {
-    return users.find((u) => u.id == userId);
-  }
-
   return (
     <div className="h-dvh flex flex-col">
       <NavigationHeader
         className="p-3"
-        title={getChatName()}
+        title={title}
         onClick={() => navigate("/")}
       />
 
@@ -67,11 +86,11 @@ export default function ChatPage() {
         {messagesRaw.map((message) => (
           <MessageBubble
             key={message.id}
-            profileImageUrl={userAt(message.userId).profileImageUrl}
-            userName={userAt(message.userId).name}
+            profileImageUrl={userAt(users, message.userId)?.profileImageUrl}
+            userName={userAt(users, message.userId)?.name}
             date={message.createdAt?.toDate()}
             text={message.text}
-            isLoggedUser={dbUser.id == message.userId}
+            isLoggedUser={dbUser?.id == message.userId}
           />
         ))}
         <div ref={bottomRef} />
