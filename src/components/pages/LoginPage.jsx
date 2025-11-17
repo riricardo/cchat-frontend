@@ -1,48 +1,23 @@
 import { auth } from "../../config/firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  addDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { useState } from "react";
 import LoaddingSpinner from "../core/LoadingSpinner";
+import { getUserByEmail, createUser } from "../../services/userService";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
-  async function createUser() {
-    const user = auth?.currentUser;
-
-    await addDoc(collection(db, "users"), {
-      email: user?.email,
-      profileImageUrl: user?.photoURL,
-      createdAt: serverTimestamp(),
-    });
-  }
-
   async function createUserIfNotExists() {
-    const email = auth?.currentUser?.email;
+    const user = await getUserByEmail(auth?.currentUser?.email);
 
-    const q = query(collection(db, "users"), where("email", "==", email));
-
-    const snap = await getDocs(q);
-
-    if (snap.empty) await createUser();
+    if (user == null)
+      await createUser(auth?.currentUser.email, auth?.currentUser.photoURL);
   }
 
   async function login() {
     try {
       setIsLoading(true);
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, new GoogleAuthProvider());
       await createUserIfNotExists();
     } catch (error) {
       console.error(error);
