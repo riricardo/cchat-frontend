@@ -3,17 +3,19 @@ import InputSearch from "../core/InputSearch";
 import NavigationHeader from "../core/NavigationHeader";
 import { useState, useRef } from "react";
 import { getUsersByName } from "../../services/userService";
+import { useAuth } from "../context/AuthProvider";
 
 export default function ChatPage() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef();
+  const { dbUser } = useAuth();
 
   async function queryUsers(text) {
     let users = await getUsersByName(text);
 
-    setUsers(users);
+    setUsers(users.filter((user) => user.email != dbUser.email));
   }
 
   async function handleKeyDown(e) {
