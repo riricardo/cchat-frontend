@@ -1,8 +1,9 @@
 import { auth } from "../../config/firebase";
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useState } from "react";
 import LoaddingSpinner from "../core/LoadingSpinner";
 import { getUserByEmail, createUser } from "../../services/userService";
+import CChatTitle from "../core/CChatTitle";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +37,7 @@ export default function LoginPage() {
         <img src="./icon.png" alt="Logo" />
       </div>
 
-      <h1 className="fa-shake text-3xl font-bold text-green-500">cchat</h1>
+      <CChatTitle />
 
       {isLoading ? (
         <LoaddingSpinner className="mt-4" />
