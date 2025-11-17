@@ -7,13 +7,14 @@ import MessageInput from "../core/MessageInput";
 import NavigationHeader from "../core/NavigationHeader";
 import {
   createChatMessage,
-  getChatMessages,
   listenToMessages,
+  listenToUsers,
 } from "../../services/chatService";
 
 export default function ChatPage() {
   const { chatId } = useParams();
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
   const [messagesRaw, setMessagesRaw] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
@@ -26,13 +27,16 @@ export default function ChatPage() {
   }
 
   useEffect(() => {
-    const unsubscribe = listenToMessages(chatId, (msgs) =>
-      setMessagesRaw(msgs)
-    );
+    const unsubscribeUsers = listenToUsers((users) => setUsers(users));
+    const unsubscribeMessages = listenToMessages(chatId, (messages) => {
+      setMessagesRaw(messages);
+      scrollToBotton();
+    });
 
-    scrollToBotton();
-
-    return () => unsubscribe();
+    return () => {
+      unsubscribeMessages();
+      unsubscribeUsers();
+    };
   }, [chatId]);
 
   function getChatName() {
@@ -45,7 +49,10 @@ export default function ChatPage() {
     await createChatMessage(chatId, dbUser.id, newMessage);
 
     setNewMessage("");
-    scrollToBotton();
+  }
+
+  function userAt(userId) {
+    return users.find((u) => u.id == userId);
   }
 
   return (
@@ -60,8 +67,8 @@ export default function ChatPage() {
         {messagesRaw.map((message) => (
           <MessageBubble
             key={message.id}
-            profileImageUrl="https://img.daisyui.com/images/profile/demo/1@94.webp"
-            userName={message.userId}
+            profileImageUrl={userAt(message.userId).profileImageUrl}
+            userName={userAt(message.userId).name}
             date={message.createdAt?.toDate()}
             text={message.text}
             isLoggedUser={dbUser.id == message.userId}
