@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import NavigationHeader from "../core/NavigationHeader";
 import SelectUserModal from "../modals/SelectUserModal";
 import { useAuth } from "../context/AuthProvider";
-import { createChat } from "../../services/chatService";
+import { createChatHeader } from "../../services/chatService";
 import { uploadFile } from "../../services/fileUpload";
 import LoadingSpinner from "../core/LoadingSpinner";
 
@@ -69,7 +69,7 @@ export default function ChatPage() {
         imageUrl: url,
       };
 
-      let chatId = await createChat(group, privateChat);
+      let chatId = await createChatHeader(group, privateChat);
 
       navigate(`/chat/${chatId}`);
     } catch (error) {

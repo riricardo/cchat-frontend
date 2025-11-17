@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { getUsersByName } from "../../services/userService";
 import { useAuth } from "../context/AuthProvider";
 import {
-  createChat,
+  createChatHeader,
   searchChatByUserKey,
   makeUsersKey,
 } from "../../services/chatService";
@@ -55,7 +55,7 @@ export default function ChatPage() {
       let chat = await searchChatByUserKey(usersIds);
       let chatId = chat?.id;
 
-      if (chatId == null) chatId = await createChat(group, privateChat);
+      if (chatId == null) chatId = await createChatHeader(group, privateChat);
 
       navigate(`/chat/${chatId}`);
     } catch (error) {

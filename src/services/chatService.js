@@ -32,7 +32,7 @@ export async function searchChatByUserKey(users) {
   };
 }
 
-export async function createChat(group, privateChat) {
+export async function createChatHeader(group, privateChat) {
   const document = await addDoc(collection(db, "chatHeader"), {
     group,
     privateChat,
