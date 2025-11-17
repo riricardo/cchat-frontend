@@ -15,7 +15,10 @@ export default function ChangeProfilePictureModal({ open, onClose }) {
   }
 
   useEffect(() => {
-    if (open) setPreview(null);
+    if (open) {
+      setPreview(null);
+      setIsLoading(false);
+    }
   }, [open]);
 
   if (!open) return null;

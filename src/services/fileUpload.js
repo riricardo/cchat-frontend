@@ -10,3 +10,12 @@ export async function uploadFile(file, path) {
 
   return url;
 }
+
+export async function uploadFromUrl(url, path) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, blob);
+  const newUrl = await getDownloadURL(storageRef);
+  return newUrl;
+}

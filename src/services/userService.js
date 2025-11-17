@@ -9,7 +9,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { uploadFile } from "./fileUpload";
+import { uploadFile, uploadFromUrl } from "./fileUpload";
 
 export async function getUserByEmail(email) {
   const q = query(collection(db, "users"), where("email", "==", email));
@@ -27,12 +27,21 @@ export async function getUserByEmail(email) {
 }
 
 export async function createUser(email, profileImageUrl, name) {
-  await addDoc(collection(db, "users"), {
+  const doc = await addDoc(collection(db, "users"), {
     email,
     profileImageUrl,
     name,
     nameLower: name.toLowerCase(),
     createdAt: serverTimestamp(),
+  });
+
+  //Workaround for protected images
+  const newUrl = await uploadFromUrl(
+    profileImageUrl,
+    `users/${doc.id}/profile.png`
+  );
+  await updateDoc(doc(db, "users", doc.id), {
+    profileImageUrl: newUrl,
   });
 }
 
