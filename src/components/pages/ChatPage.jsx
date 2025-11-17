@@ -40,8 +40,6 @@ export default function ChatPage() {
       if (chat?.privateChat?.users[0].id == dbUser.id) index = 1;
     }
 
-    console.log(index);
-
     let title =
       chat?.group == null
         ? userAt(users, chat?.privateChat?.users[index].id)?.name
