@@ -1,4 +1,10 @@
-export default function InputSearch({ className }) {
+export default function InputSearch({
+  className,
+  value,
+  onChange,
+  onKeyDown,
+  ref,
+}) {
   return (
     <div className={`flex flex-col ${className}`}>
       <label className="input w-full">
@@ -18,7 +24,15 @@ export default function InputSearch({ className }) {
             <path d="m21 21-4.3-4.3"></path>
           </g>
         </svg>
-        <input type="search" className="grow" placeholder="Name of the user" />
+        <input
+          ref={ref}
+          type="search"
+          className="grow"
+          placeholder="Name of the user"
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
       </label>
     </div>
   );
