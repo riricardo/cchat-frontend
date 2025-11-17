@@ -16,7 +16,7 @@ export function makeUsersKey(users) {
 
 export async function searchChatByUserKey(users) {
   const q = query(
-    collection(db, "chats"),
+    collection(db, "chatHeader"),
     where("privateChat.usersKey", "==", makeUsersKey(users))
   );
 
@@ -33,7 +33,7 @@ export async function searchChatByUserKey(users) {
 }
 
 export async function createChat(group, privateChat) {
-  const document = await addDoc(collection(db, "chats"), {
+  const document = await addDoc(collection(db, "chatHeader"), {
     group,
     privateChat,
     createdAt: serverTimestamp(),
@@ -44,7 +44,7 @@ export async function createChat(group, privateChat) {
 
 export async function getChatsByUserId(id) {
   const q = query(
-    collection(db, "chats"),
+    collection(db, "chatHeader"),
     or(
       where("privateChat.usersIds", "array-contains", id),
       where("group.usersIds", "array-contains", id)

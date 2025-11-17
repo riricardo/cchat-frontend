@@ -1,4 +1,3 @@
-//import chats from "../tests/chats-test";
 import { useNavigate } from "react-router-dom";
 import { getChatsByUserId } from "../../services/chatService";
 import { useEffect, useState } from "react";
@@ -54,8 +53,8 @@ export default function ChatTab() {
   return (
     <>
       {chats.length == 0 ? (
-        <div class="flex items-center justify-center h-full w-full">
-          <span class="">No chats started</span>
+        <div className="flex items-center justify-center h-full w-full">
+          <span>No chats started</span>
         </div>
       ) : (
         <ul className="list bg-base-100 rounded-box">
