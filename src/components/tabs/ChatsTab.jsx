@@ -38,15 +38,21 @@ export default function ChatTab() {
     navigate(`/chat/${chatId}`);
   }
 
+  function getNotLoggedUser(users) {
+    if (users[0].id == dbUser.id) return users[1];
+
+    return users[0];
+  }
+
   function getChatImage(chat) {
     return chat.group == null
-      ? chat.privateChat.users[0].imageUrl
+      ? getNotLoggedUser(chat.privateChat.users).imageUrl
       : chat.group.imageUrl;
   }
 
   function getChatTitle(chat) {
     return chat.group == null
-      ? chat.privateChat.users[0].name
+      ? getNotLoggedUser(chat.privateChat.users).name
       : chat.group.name;
   }
 
