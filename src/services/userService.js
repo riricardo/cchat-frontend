@@ -15,7 +15,7 @@ export async function getUserByEmail(email) {
 
   if (snap.empty) return null;
 
-  const doc = snap.doc[0];
+  const doc = snap.docs[0];
 
   return {
     ...doc.data(),
@@ -23,10 +23,11 @@ export async function getUserByEmail(email) {
   };
 }
 
-export async function createUser(email, profileImageUrl) {
+export async function createUser(email, profileImageUrl, name) {
   await addDoc(collection(db, "users"), {
     email,
     profileImageUrl,
+    name,
     createdAt: serverTimestamp(),
   });
 }

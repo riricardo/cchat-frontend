@@ -11,7 +11,11 @@ export default function LoginPage() {
     const user = await getUserByEmail(auth?.currentUser?.email);
 
     if (user == null)
-      await createUser(auth?.currentUser.email, auth?.currentUser.photoURL);
+      await createUser(
+        auth?.currentUser.email,
+        auth?.currentUser.photoURL,
+        auth?.currentUser.displayName
+      );
   }
 
   async function login() {

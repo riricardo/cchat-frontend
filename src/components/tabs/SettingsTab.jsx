@@ -1,7 +1,8 @@
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import ChangeProfilePictureModal from "../modals/ChageProfilePictureModal";
 import { useState } from "react";
+import { useAuth } from "../context/AuthProvider";
 
 export function SettingsTabHeader() {
   return (
@@ -16,17 +17,22 @@ export default function SettingsTab() {
   const [changeProfilePictureModalOpen, setChangeProfilePictureModalOpen] =
     useState(false);
 
+  const { dbUser } = useAuth();
+
   return (
     <div className="flex flex-col items-center gap-4 p-6">
-      <h1 className="text-3xl font-bold">{auth?.currentUser?.displayName}</h1>
+      <h1 className="text-3xl font-bold">{dbUser.name}</h1>
       <div
         className="avatar cursor-pointer"
         onClick={() => setChangeProfilePictureModalOpen(true)}
       >
         <div className="w-24 rounded-full">
-          <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+          <img src={dbUser.profileImageUrl} />
         </div>
       </div>
+
+      <h1>{dbUser.email}</h1>
+
       <button className="btn btn-warning" onClick={() => signOut(auth)}>
         Sign Out
       </button>
