@@ -44,3 +44,22 @@ export async function changeProfileImage(id, file) {
     profileImageUrl: url,
   });
 }
+
+export async function getUsersByName(name) {
+  const search = name.toLowerCase();
+
+  const q = query(
+    collection(db, "users"),
+    where("nameLower", ">=", search),
+    where("nameLower", "<=", search + "\uf8ff")
+  );
+
+  const snap = await getDocs(q);
+
+  const results = snap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  return results.sort((a, b) => a.name.localeCompare(b.name));
+}

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import InputSearch from "../core/InputSearch";
 import NavigationHeader from "../core/NavigationHeader";
-import usersTest from "../tests/users-test";
 import { useState, useRef } from "react";
+import { getUsersByName } from "../../services/userService";
 
 export default function ChatPage() {
   const navigate = useNavigate();
@@ -10,17 +10,16 @@ export default function ChatPage() {
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef();
 
-  function queryUsers(text) {
-    let users = usersTest.filter((u) =>
-      u.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-    );
+  async function queryUsers(text) {
+    let users = await getUsersByName(text);
+
     setUsers(users);
   }
 
-  function handleKeyDown(e) {
+  async function handleKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      queryUsers(inputValue);
+      await queryUsers(inputValue);
       setInputValue("");
       inputRef.current.blur();
       return;
@@ -49,7 +48,10 @@ export default function ChatPage() {
           return (
             <li key={user.id} className="list-row flex">
               <div className="flex gap-3 flex-1 items-center">
-                <img className="size-10 rounded-box" src={user.profileUrl} />
+                <img
+                  className="size-10 rounded-box"
+                  src={user.profileImageUrl}
+                />
                 <div>{user.name}</div>
               </div>
               <button className="btn btn-accent justify-end">Start chat</button>
