@@ -6,6 +6,8 @@ import {
   getDocs,
   serverTimestamp,
   or,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
@@ -59,4 +61,44 @@ export async function getChatsByUserId(id) {
   }));
 
   return results.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+}
+
+export async function getChatMessages(chatId) {
+  const q = query(collection(db, "chatMessage"), where("chatId", "==", chatId));
+
+  const snap = await getDocs(q);
+
+  const results = snap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  return results.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+}
+
+export async function createChatMessage(chatId, userId, text) {
+  const document = await addDoc(collection(db, "chats", chatId, "messages"), {
+    chatId,
+    userId,
+    text,
+    createdAt: serverTimestamp(),
+  });
+
+  return document.id;
+}
+
+export function listenToMessages(chatId, callback) {
+  const q = query(
+    collection(db, "chats", chatId, "messages"),
+    orderBy("createdAt", "asc")
+  );
+
+  return onSnapshot(q, (snapshot) => {
+    const messages = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    callback(messages);
+  });
 }
