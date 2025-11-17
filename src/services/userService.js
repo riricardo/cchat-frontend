@@ -27,7 +27,7 @@ export async function getUserByEmail(email) {
 }
 
 export async function createUser(email, profileImageUrl, name) {
-  const doc = await addDoc(collection(db, "users"), {
+  const document = await addDoc(collection(db, "users"), {
     email,
     profileImageUrl,
     name,
@@ -38,9 +38,10 @@ export async function createUser(email, profileImageUrl, name) {
   //Workaround for protected images
   const newUrl = await uploadFromUrl(
     profileImageUrl,
-    `users/${doc.id}/profile.png`
+    `users/${document.id}/profile`
   );
-  await updateDoc(doc(db, "users", doc.id), {
+
+  await updateDoc(doc(db, "users", document.id), {
     profileImageUrl: newUrl,
   });
 }
