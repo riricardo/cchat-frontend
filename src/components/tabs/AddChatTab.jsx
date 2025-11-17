@@ -22,10 +22,10 @@ export default function AddChatTab() {
   return (
     <div className="flex flex-col items-center gap-4 p-6">
       <button className="btn btn-accent" onClick={handleAddUserClick}>
-        Add user
+        Add user chat
       </button>
       <button className="btn btn-accent" onClick={handleAddGroupClick}>
-        Create group
+        Create group chat
       </button>
     </div>
   );

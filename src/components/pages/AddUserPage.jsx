@@ -41,6 +41,7 @@ export default function ChatPage() {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
+        placeholder="Search for the user..."
       />
 
       <ul className="list bg-base-100 rounded-box">

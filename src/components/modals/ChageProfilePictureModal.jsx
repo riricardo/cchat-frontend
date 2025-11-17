@@ -13,14 +13,14 @@ export default function ChangeProfilePictureModal({ open, onClose, onSave }) {
 
   if (!open) return null;
 
-  const handleFileChange = (e) => {
+  function handleFileChange(e) {
     const file = e.target.files[0];
     if (!file) {
       setPreview(null);
     } else {
       setPreview(URL.createObjectURL(file));
     }
-  };
+  }
 
   return (
     <dialog className="modal modal-open">

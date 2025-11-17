@@ -4,6 +4,7 @@ export default function InputSearch({
   onChange,
   onKeyDown,
   ref,
+  placeholder,
 }) {
   return (
     <div className={`flex flex-col ${className}`}>
@@ -28,7 +29,7 @@ export default function InputSearch({
           ref={ref}
           type="search"
           className="grow"
-          placeholder="Name of the user"
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           onKeyDown={onKeyDown}

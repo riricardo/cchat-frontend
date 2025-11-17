@@ -7,7 +7,7 @@ export default function LoginPage() {
       <div className="w-24 rounded-xl">
         <img src="./icon.png" alt="Logo" />
       </div>
-      <h1 className="text-3xl font-bold text-green-500">cchat</h1>
+      <h1 className="fa-shake text-3xl font-bold text-green-500">cchat</h1>
       <button
         className="btn btn-accent mt-5"
         onClick={() => {
