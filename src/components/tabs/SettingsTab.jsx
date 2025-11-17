@@ -21,17 +21,17 @@ export default function SettingsTab() {
 
   return (
     <div className="flex flex-col items-center gap-4 p-6">
-      <h1 className="text-3xl font-bold">{dbUser.name}</h1>
+      <h1 className="text-3xl font-bold">{dbUser?.name}</h1>
       <div
         className="avatar cursor-pointer"
         onClick={() => setChangeProfilePictureModalOpen(true)}
       >
         <div className="w-24 rounded-full">
-          <img src={dbUser.profileImageUrl} />
+          <img src={dbUser?.profileImageUrl} />
         </div>
       </div>
 
-      <h1>{dbUser.email}</h1>
+      <h1>{dbUser?.email}</h1>
 
       <button className="btn btn-warning" onClick={() => signOut(auth)}>
         Sign Out
@@ -40,7 +40,6 @@ export default function SettingsTab() {
       <ChangeProfilePictureModal
         open={changeProfilePictureModalOpen}
         onClose={() => setChangeProfilePictureModalOpen(false)}
-        onSave={() => setChangeProfilePictureModalOpen(false)}
       />
     </div>
   );

@@ -10,6 +10,11 @@ export function AuthProvider({ children }) {
   const [dbUser, setDbUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  async function updateDbUser() {
+    if (auth?.currentUser?.email)
+      setDbUser(await getUserByEmail(auth?.currentUser?.email));
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -24,7 +29,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, dbUser }}>
+    <AuthContext.Provider value={{ user, loading, dbUser, updateDbUser }}>
       {children}
     </AuthContext.Provider>
   );
