@@ -19,8 +19,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
 
-      if (currentUser?.email)
-        setDbUser(await getUserByEmail(currentUser.email));
+      await updateDbUser();
 
       setLoading(false);
     });

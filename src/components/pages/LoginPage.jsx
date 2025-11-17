@@ -4,19 +4,23 @@ import { useState } from "react";
 import LoaddingSpinner from "../core/LoadingSpinner";
 import { getUserByEmail, createUser } from "../../services/userService";
 import CChatTitle from "../core/CChatTitle";
+import { useAuth } from "../context/AuthProvider";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const { updateDbUser } = useAuth();
 
   async function createUserIfNotExists() {
     const user = await getUserByEmail(auth?.currentUser?.email);
 
-    if (user == null)
+    if (user == null) {
       await createUser(
         auth?.currentUser.email,
         auth?.currentUser.photoURL,
         auth?.currentUser.displayName
       );
+      await updateDbUser();
+    }
   }
 
   async function login() {
