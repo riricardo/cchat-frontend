@@ -7,6 +7,7 @@ import {
   serverTimestamp,
   updateDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { uploadFile, uploadFromUrl } from "./fileUpload";
@@ -24,6 +25,17 @@ export async function getUserByEmail(email) {
     ...doc.data(),
     id: doc.id,
   };
+}
+
+export async function getUserById(id) {
+  const ref = doc(db, "users", id);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    return { id: snap.id, ...snap.data() };
+  } else {
+    return null;
+  }
 }
 
 export async function createUser(email, profileImageUrl, name) {

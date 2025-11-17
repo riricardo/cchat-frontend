@@ -4,11 +4,19 @@ import NavigationHeader from "../core/NavigationHeader";
 import { useState, useRef } from "react";
 import { getUsersByName } from "../../services/userService";
 import { useAuth } from "../context/AuthProvider";
+import {
+  createChat,
+  searchChatByUserKey,
+  makeUsersKey,
+} from "../../services/chatService";
+import { getUserById } from "../../services/userService";
+import LoadingSpinner from "../core/LoadingSpinner";
 
 export default function ChatPage() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef();
   const { dbUser } = useAuth();
 
@@ -25,6 +33,35 @@ export default function ChatPage() {
       setInputValue("");
       inputRef.current.blur();
       return;
+    }
+  }
+
+  async function handleStartChat(userId) {
+    try {
+      let user = await getUserById(userId);
+      let usersIds = [userId, dbUser.id];
+      let users = [
+        { id: user.id, imageUrl: user.profileImageUrl, name: user.name },
+        { id: dbUser.id, imageUrl: dbUser.profileImageUrl, name: dbUser.name },
+      ];
+      let privateChat = {
+        usersIds,
+        users,
+        usersKey: makeUsersKey(usersIds),
+      };
+
+      let group = null;
+
+      let chat = await searchChatByUserKey(usersIds);
+      let chatId = chat?.id;
+
+      if (chatId == null) chatId = await createChat(group, privateChat);
+
+      navigate(`/chat/${chatId}`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -56,7 +93,13 @@ export default function ChatPage() {
                 />
                 <div>{user.name}</div>
               </div>
-              <button className="btn btn-accent justify-end">Start chat</button>
+              <button
+                className="btn btn-accent justify-end"
+                onClick={() => handleStartChat(user.id)}
+              >
+                Start chat
+                {isLoading && <LoadingSpinner textAccent={false} />}
+              </button>
             </li>
           );
         })}
