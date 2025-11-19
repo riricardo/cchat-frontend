@@ -8,9 +8,23 @@ import {
   updateDoc,
   doc,
   getDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { uploadFile, uploadFromUrl } from "./fileUpload";
+import { getChatsByUserId } from "./chatService";
+
+async function saveDocs(collection, docs) {
+  const batch = writeBatch(db);
+
+  docs.forEach((d) => {
+    const { id, ...obj } = d;
+    const ref = doc(db, collection, id);
+    batch.update(ref, obj);
+  });
+
+  await batch.commit();
+}
 
 export async function getUserByEmail(email) {
   const q = query(collection(db, "users"), where("email", "==", email));
@@ -61,6 +75,22 @@ export async function createUser(email, profileImageUrl, name) {
 export async function changeProfileImage(id, file) {
   const ext = file.type.split("/")[1];
   const url = await uploadFile(file, `users/${id}/profile.${ext}`);
+
+  let chats = await getChatsByUserId(id);
+
+  chats = chats
+    .filter((chat) => chat.group == null)
+    .map((chat) => ({
+      ...chat,
+      privateChat: {
+        ...chat.privateChat,
+        users: chat.privateChat.users.map((u) =>
+          u.id === id ? { ...u, imageUrl: url } : u
+        ),
+      },
+    }));
+
+  await saveDocs("chatHeader", chats);
 
   await updateDoc(doc(db, "users", id), {
     profileImageUrl: url,
