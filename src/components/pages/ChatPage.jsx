@@ -9,8 +9,8 @@ import {
   createChatMessage,
   getChatById,
   listenToMessages,
-  listenToUsers,
 } from "../../services/chatService";
+import { listenToUsers } from "../../services/userService";
 
 export default function ChatPage() {
   const { chatId } = useParams();

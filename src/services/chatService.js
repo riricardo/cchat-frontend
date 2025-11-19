@@ -119,16 +119,3 @@ export function listenToMessages(chatId, callback) {
     callback(data);
   });
 }
-
-export function listenToUsers(callback) {
-  const q = collection(db, "users");
-
-  return onSnapshot(q, (snapshot) => {
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    callback(data);
-  });
-}

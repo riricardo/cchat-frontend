@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
   writeBatch,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { uploadFile, uploadFromUrl } from "./fileUpload";
@@ -114,4 +115,17 @@ export async function getUsersByName(name) {
   }));
 
   return results.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function listenToUsers(callback) {
+  const q = collection(db, "users");
+
+  return onSnapshot(q, (snapshot) => {
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    callback(data);
+  });
 }
