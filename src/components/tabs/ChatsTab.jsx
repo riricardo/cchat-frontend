@@ -77,7 +77,7 @@ export default function ChatTab() {
                     src={getChatImage(chat)}
                   />
                 </div>
-                <div>{getChatTitle(chat)}</div>
+                <div className="select-none-force">{getChatTitle(chat)}</div>
               </li>
             );
           })}

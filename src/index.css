@@ -2,3 +2,9 @@
 @plugin "daisyui" {
   themes: light, dark --prefersdark, pastel --default;
 }
+
+.select-none-force {
+  @apply select-none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
