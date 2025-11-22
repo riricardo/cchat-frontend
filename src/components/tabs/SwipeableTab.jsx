@@ -1,9 +1,13 @@
 import { useSwipeable } from "react-swipeable";
-import React, { useState } from "react";
+import React from "react";
 
-export default function SwipeableTab({ children, className = "" }) {
+export default function SwipeableTab({
+  children,
+  className = "",
+  index,
+  setIndex,
+}) {
   const tabs = React.Children.toArray(children);
-  const [index, setIndex] = useState(0);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setIndex((i) => Math.min(i + 1, tabs.length - 1)),

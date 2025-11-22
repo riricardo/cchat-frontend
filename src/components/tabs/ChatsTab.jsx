@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { getChatsByUserId } from "../../services/chatService";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
+import { useTabContext } from "../context/TabProvider";
 
 export function ChatTabHeader() {
   return (
@@ -16,6 +17,7 @@ export default function ChatTab() {
   const navigate = useNavigate();
   const { dbUser } = useAuth();
   const [chats, setChats] = useState([]);
+  const { selectTabAddChat } = useTabContext();
 
   useEffect(() => {
     if (!dbUser?.id) return;
@@ -59,8 +61,11 @@ export default function ChatTab() {
   return (
     <>
       {chats.length == 0 ? (
-        <div className="flex items-center justify-center h-full w-full">
-          <span>No chats started</span>
+        <div className="flex flex-col gap-4 items-center justify-center h-full w-full">
+          <span>No chats started...</span>
+          <button className="btn btn-accent" onClick={selectTabAddChat}>
+            Add a chat
+          </button>
         </div>
       ) : (
         <ul className="list bg-base-100 rounded-box">

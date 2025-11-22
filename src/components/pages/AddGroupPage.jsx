@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthProvider";
 import { createChatHeader } from "../../services/chatService";
 import { uploadFile } from "../../services/fileUpload";
 import LoadingSpinner from "../core/LoadingSpinner";
+import { useTabContext } from "../context/TabProvider";
 
 export default function ChatPage() {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function ChatPage() {
   const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { selectTabAddChat } = useTabContext();
 
   function hasPreview() {
     return preview != null;
@@ -79,12 +82,17 @@ export default function ChatPage() {
     }
   }
 
+  function handleGoBack() {
+    navigate("/");
+    selectTabAddChat();
+  }
+
   return (
     <div className="h-dvh flex flex-col">
       <NavigationHeader
         className="p-3"
         title="Add group"
-        onClick={() => navigate("/")}
+        onClick={handleGoBack}
       />
 
       <div className="flex flex-col items-center gap-4 p-6">

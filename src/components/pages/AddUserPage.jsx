@@ -11,6 +11,7 @@ import {
 } from "../../services/chatService";
 import { getUserById } from "../../services/userService";
 import LoadingSpinner from "../core/LoadingSpinner";
+import { useTabContext } from "../context/TabProvider";
 
 export default function ChatPage() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef();
   const { dbUser } = useAuth();
+  const { selectTabAddChat } = useTabContext();
 
   async function queryUsers(text) {
     let users = await getUsersByName(text);
@@ -65,12 +67,17 @@ export default function ChatPage() {
     }
   }
 
+  function handleGoBack() {
+    navigate("/");
+    selectTabAddChat();
+  }
+
   return (
     <div className="h-dvh flex flex-col">
       <NavigationHeader
         className="p-3"
         title="Add user"
-        onClick={() => navigate("/")}
+        onClick={handleGoBack}
       />
 
       <InputSearch
