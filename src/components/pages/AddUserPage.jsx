@@ -28,7 +28,7 @@ export default function ChatPage() {
 
     let users = await getUsersByName(text);
 
-    setUsers(users.filter((user) => user.email != dbUser.email));
+    setUsers(users.filter((user) => user.id != dbUser.id));
     setIsLoadingSearch(false);
   }
 
