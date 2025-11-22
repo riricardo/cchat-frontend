@@ -18,14 +18,18 @@ export default function ChatPage() {
   const [users, setUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const inputRef = useRef();
   const { dbUser } = useAuth();
   const { selectTabAddChat } = useTabContext();
 
   async function queryUsers(text) {
+    setIsLoadingSearch(true);
+
     let users = await getUsersByName(text);
 
     setUsers(users.filter((user) => user.email != dbUser.email));
+    setIsLoadingSearch(false);
   }
 
   async function handleKeyDown(e) {
@@ -88,6 +92,10 @@ export default function ChatPage() {
         onKeyDown={handleKeyDown}
         placeholder="Search for the user..."
       />
+
+      {isLoadingSearch && (
+        <LoadingSpinner className="flex justify-center h-full w-full" />
+      )}
 
       <ul className="list bg-base-100 rounded-box">
         {users.map((user) => {

@@ -94,6 +94,8 @@ export async function getChatMessages(chatId) {
 }
 
 export async function createChatMessage(chatId, userId, text) {
+  if (text.trim() == "") return;
+
   const document = await addDoc(collection(db, "chats", chatId, "messages"), {
     chatId,
     userId,
