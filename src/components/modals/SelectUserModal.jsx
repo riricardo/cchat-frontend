@@ -12,7 +12,7 @@ export default function SelectUserModal({ onClose, onAddUser, usersToIgnore }) {
   async function queryUsers(text) {
     let users = await getUsersByName(text);
 
-    let filteredUsers1 = users.filter((user) => user.email != dbUser.email);
+    let filteredUsers1 = users.filter((user) => user.id != dbUser.id);
     let filteredUsers2 = filteredUsers1.filter(
       (a) => !usersToIgnore.some((b) => b.id == a.id)
     );
