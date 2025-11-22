@@ -3,14 +3,17 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useState } from "react";
 import LoaddingSpinner from "../core/LoadingSpinner";
 import CChatTitle from "../core/CChatTitle";
+import { useTabContext } from "../context/TabProvider";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const { selectTabChats } = useTabContext();
 
   async function login() {
     try {
       setIsLoading(true);
       await signInWithPopup(auth, new GoogleAuthProvider());
+      selectTabChats();
     } catch (error) {
       console.error(error);
     } finally {

@@ -83,7 +83,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="h-dvh flex flex-col">
+    <div className="min-h-dvh h-dvh flex flex-col">
       <NavigationHeader className="p-3" title={title} onClick={handleGoBack} />
 
       <div className="flex-1 overflow-y-auto p-3">
