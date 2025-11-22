@@ -103,6 +103,11 @@ export async function changeProfileImage(id, file) {
   await updateDoc(doc(db, "users", id), {
     profileImageUrl: url,
   });
+
+  await updateUserImage({
+    id,
+    profileImageUrl: url,
+  });
 }
 
 export async function createUserIfNotExists(firebaseUser) {
@@ -165,5 +170,12 @@ export async function searchUsers(q) {
   const functions = getFunctions(undefined, "europe-west2");
   const fn = httpsCallable(functions, "searchUsers");
   const result = await fn({ q });
+  return result.data;
+}
+
+export async function updateUserImage(user) {
+  const functions = getFunctions(undefined, "europe-west2");
+  const fn = httpsCallable(functions, "updateUserImage");
+  const result = await fn(user);
   return result.data;
 }
