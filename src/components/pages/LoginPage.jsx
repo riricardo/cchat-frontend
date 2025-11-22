@@ -17,7 +17,7 @@ export default function LoginPage() {
     } catch (error) {
       console.error(error);
     } finally {
-      setTimeout(() => setIsLoading(false), 2000);
+      setTimeout(() => setIsLoading(false), 7000);
     }
   }
 

@@ -11,6 +11,7 @@ import {
   writeBatch,
   onSnapshot,
 } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import { db } from "../config/firebase";
 import { uploadFile, uploadFromUrl } from "./fileUpload";
 import { getChatsByUserId } from "./chatService";
@@ -71,6 +72,12 @@ export async function createUser(email, profileImageUrl, name) {
   await updateDoc(doc(db, "users", document.id), {
     profileImageUrl: newUrl,
   });
+
+  await indexUser({
+    id: document.id,
+    name,
+    profileImageUrl,
+  });
 }
 
 export async function changeProfileImage(id, file) {
@@ -113,6 +120,10 @@ export async function createUserIfNotExists(firebaseUser) {
 }
 
 export async function getUsersByName(name) {
+  return await searchUsers(name);
+}
+
+export async function getUsersByNameDeprecated(name) {
   const search = name.toLowerCase();
 
   const q = query(
@@ -142,4 +153,17 @@ export function listenToUsers(callback) {
 
     callback(data);
   });
+}
+
+export async function indexUser(user) {
+  const functions = getFunctions(undefined, "europe-west2");
+  const fn = httpsCallable(functions, "indexUser");
+  return await fn(user);
+}
+
+export async function searchUsers(q) {
+  const functions = getFunctions(undefined, "europe-west2");
+  const fn = httpsCallable(functions, "searchUsers");
+  const result = await fn({ q });
+  return result.data;
 }
