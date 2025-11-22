@@ -104,10 +104,7 @@ export async function changeProfileImage(id, file) {
     profileImageUrl: url,
   });
 
-  await updateUserImage({
-    id,
-    profileImageUrl: url,
-  });
+  await updateUserImage(id, url);
 }
 
 export async function createUserIfNotExists(firebaseUser) {
@@ -173,9 +170,9 @@ export async function searchUsers(q) {
   return result.data;
 }
 
-export async function updateUserImage(user) {
+export async function updateUserImage(id, profileImageUrl) {
   const functions = getFunctions(undefined, "europe-west2");
   const fn = httpsCallable(functions, "updateUserImage");
-  const result = await fn(user);
+  const result = await fn({ id, profileImageUrl });
   return result.data;
 }
