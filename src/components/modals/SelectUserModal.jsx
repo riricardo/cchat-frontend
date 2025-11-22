@@ -2,14 +2,18 @@ import { useState, useRef } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { getUsersByName } from "../../services/userService";
 import InputSearch from "../core/InputSearch";
+import LoadingSpinner from "../core/LoadingSpinner";
 
 export default function SelectUserModal({ onClose, onAddUser, usersToIgnore }) {
   const [users, setUsers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef();
   const { dbUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function queryUsers(text) {
+    setIsLoading(true);
+
     let users = await getUsersByName(text);
 
     let filteredUsers1 = users.filter((user) => user.id != dbUser.id);
@@ -18,6 +22,8 @@ export default function SelectUserModal({ onClose, onAddUser, usersToIgnore }) {
     );
 
     setUsers(filteredUsers2);
+
+    setIsLoading(false);
   }
 
   async function handleKeyDown(e) {
@@ -44,27 +50,30 @@ export default function SelectUserModal({ onClose, onAddUser, usersToIgnore }) {
           placeholder="Search for the user..."
         />
 
-        <ul className="list bg-base-100 rounded-box">
-          {users.map((user) => {
-            return (
-              <li key={user.id} className="list-row flex">
-                <div className="flex gap-3 flex-1 items-center">
-                  <img
-                    className="size-10 rounded-box"
-                    src={user.profileImageUrl}
-                  />
-                  <div>{user.name}</div>
-                </div>
-                <button
-                  className="btn btn-accent justify-end"
-                  onClick={() => onAddUser(user)}
-                >
-                  Add user
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        {isLoading && <LoadingSpinner className="flex justify-center m-4" />}
+        {!isLoading && (
+          <ul className="list bg-base-100 rounded-box">
+            {users.map((user) => {
+              return (
+                <li key={user.id} className="list-row flex">
+                  <div className="flex gap-3 flex-1 items-center">
+                    <img
+                      className="size-10 rounded-box"
+                      src={user.profileImageUrl}
+                    />
+                    <div>{user.name}</div>
+                  </div>
+                  <button
+                    className="btn btn-accent justify-end"
+                    onClick={() => onAddUser(user)}
+                  >
+                    Add user
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         <div className="modal-action">
           <button className="btn" onClick={onClose}>
