@@ -23,7 +23,7 @@ export default function ChatTab() {
     let isMounted = true;
 
     async function fetchChats() {
-      const chats = await getChatsByUserId(dbUser.id);
+      const chats = await getChatsByUserId(dbUser?.id);
       if (isMounted) setChats(chats);
     }
 
@@ -32,14 +32,14 @@ export default function ChatTab() {
     return () => {
       isMounted = false;
     };
-  }, [dbUser.id]);
+  }, [dbUser?.id]);
 
   function handleChatClick(chatId) {
     navigate(`/chat/${chatId}`);
   }
 
   function getNotLoggedUser(users) {
-    if (users[0].id == dbUser.id) return users[1];
+    if (users[0].id == dbUser?.id) return users[1];
 
     return users[0];
   }

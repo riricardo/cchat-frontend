@@ -98,6 +98,20 @@ export async function changeProfileImage(id, file) {
   });
 }
 
+export async function createUserIfNotExists(firebaseUser) {
+  if (!firebaseUser) return;
+
+  const user = await getUserByEmail(firebaseUser.email);
+
+  if (user == null) {
+    await createUser(
+      firebaseUser.email,
+      firebaseUser.photoURL,
+      firebaseUser.displayName
+    );
+  }
+}
+
 export async function getUsersByName(name) {
   const search = name.toLowerCase();
 

@@ -1,4 +1,4 @@
-import { auth, db } from "../../config/firebase";
+import { auth } from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import ChangeProfilePictureModal from "../modals/ChageProfilePictureModal";
 import { useState } from "react";
