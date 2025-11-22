@@ -4,10 +4,12 @@ import { useState } from "react";
 import LoaddingSpinner from "../core/LoadingSpinner";
 import CChatTitle from "../core/CChatTitle";
 import { useTabContext } from "../context/TabProvider";
+import { useAuth } from "../context/AuthProvider";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { selectTabChats } = useTabContext();
+  const { loading } = useAuth();
 
   async function login() {
     try {
@@ -17,7 +19,7 @@ export default function LoginPage() {
     } catch (error) {
       console.error(error);
     } finally {
-      setTimeout(() => setIsLoading(false), 10000);
+      setIsLoading(false);
     }
   }
 
@@ -29,7 +31,7 @@ export default function LoginPage() {
 
       <CChatTitle />
 
-      {isLoading ? (
+      {isLoading || loading ? (
         <LoaddingSpinner className="mt-4" />
       ) : (
         <button className="btn btn-accent mt-5" onClick={login}>

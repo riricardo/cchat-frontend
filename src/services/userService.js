@@ -74,6 +74,7 @@ export async function createUser(email, profileImageUrl, name) {
   });
 
   await indexUser({
+    id: document.id,
     name,
     profileImageUrl,
   });
