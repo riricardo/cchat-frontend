@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getChatsByUserId } from "../../services/chatService";
+import { listenToChatsByUserId } from "../../services/chatService";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { useTabContext } from "../context/TabProvider";
@@ -22,18 +22,11 @@ export default function ChatTab() {
   useEffect(() => {
     if (!dbUser?.id) return;
 
-    let isMounted = true;
+    const unsubscribe = listenToChatsByUserId(dbUser.id, (chats) => {
+      setChats(chats);
+    });
 
-    async function fetchChats() {
-      const chats = await getChatsByUserId(dbUser?.id);
-      if (isMounted) setChats(chats);
-    }
-
-    fetchChats();
-
-    return () => {
-      isMounted = false;
-    };
+    return () => unsubscribe();
   }, [dbUser?.id]);
 
   function handleChatClick(chatId) {

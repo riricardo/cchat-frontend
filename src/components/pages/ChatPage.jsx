@@ -11,6 +11,7 @@ import {
   listenToMessages,
 } from "../../services/chatService";
 import { listenToUsers } from "../../services/userService";
+import { useTabContext } from "../context/TabProvider";
 
 export default function ChatPage() {
   const { chatId } = useParams();
@@ -19,12 +20,13 @@ export default function ChatPage() {
   const [messagesRaw, setMessagesRaw] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [title, setTitle] = useState("");
+  const { selectTabChats } = useTabContext();
 
   const { dbUser } = useAuth();
 
   const bottomRef = useRef();
 
-  function scrollToBotton() {
+  function scrollToBottom() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -49,13 +51,16 @@ export default function ChatPage() {
   }
 
   useEffect(() => {
+    scrollToBottom();
+  }, [messagesRaw]);
+
+  useEffect(() => {
     const unsubscribeUsers = listenToUsers((users) => {
       setUsers(users);
       getChat(users);
     });
     const unsubscribeMessages = listenToMessages(chatId, (messages) => {
       setMessagesRaw(messages);
-      scrollToBotton();
     });
 
     return () => {
@@ -72,13 +77,14 @@ export default function ChatPage() {
     setNewMessage("");
   }
 
+  function handleGoBack() {
+    navigate("/");
+    selectTabChats();
+  }
+
   return (
     <div className="h-dvh flex flex-col">
-      <NavigationHeader
-        className="p-3"
-        title={title}
-        onClick={() => navigate("/")}
-      />
+      <NavigationHeader className="p-3" title={title} onClick={handleGoBack} />
 
       <div className="flex-1 overflow-y-auto p-3">
         {messagesRaw.map((message) => (

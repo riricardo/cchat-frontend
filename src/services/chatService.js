@@ -119,3 +119,28 @@ export function listenToMessages(chatId, callback) {
     callback(data);
   });
 }
+
+export function listenToChatsByUserId(id, callback) {
+  const q = query(
+    collection(db, "chatHeader"),
+    or(
+      where("privateChat.usersIds", "array-contains", id),
+      where("group.usersIds", "array-contains", id)
+    )
+  );
+
+  const unsubscribe = onSnapshot(q, (snap) => {
+    const results = snap.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const sorted = results.sort(
+      (a, b) => b.createdAt.seconds - a.createdAt.seconds
+    );
+
+    callback(sorted);
+  });
+
+  return unsubscribe;
+}
